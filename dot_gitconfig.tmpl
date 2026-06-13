@@ -1,0 +1,35 @@
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+[user]
+    name = {{ .name }}
+    email = {{ .email }}
+{{- if .signingKey }}
+    signingkey = {{ .signingKey }}
+[commit]
+    gpgsign = true
+[tag]
+    gpgsign = true
+{{- end }}
+[core]
+    pager = delta
+[delta]
+    navigate = true
+    side-by-side = true
+[diff]
+    tool = nvimdiff
+[difftool "nvimdiff"]
+    cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+[difftool]
+    prompt = false
+[merge]
+    tool = nvimdiff
+[mergetool "nvimdiff"]
+    cmd = nvim -d \"$LOCAL\" \"$BASE\" \"$REMOTE\" \"$MERGED\" -c \"wincmd J\"
+[mergetool]
+    prompt = false
+    keepBackup = false
+[init]
+    defaultBranch = main

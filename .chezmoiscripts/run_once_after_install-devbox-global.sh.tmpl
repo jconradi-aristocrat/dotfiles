@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# hash: {{ include "devbox.json" | sha256sum }}
+set -euo pipefail
+if ! command -v devbox >/dev/null 2>&1; then
+  echo "devbox not found on PATH; skipping global install."
+  exit 0
+fi
+SRC="{{ .chezmoi.sourceDir }}/devbox.json"
+DEST_DIR="$(devbox global path 2>/dev/null || echo "$HOME/.local/share/devbox/global")"
+if [ -f "$SRC" ]; then
+  mkdir -p "$DEST_DIR"
+  cp "$SRC" "$DEST_DIR/devbox.json"
+  devbox global install
+fi

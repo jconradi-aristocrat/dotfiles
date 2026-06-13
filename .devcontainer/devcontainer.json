@@ -1,0 +1,15 @@
+{
+  "name": "dotfiles-devcontainer",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true
+    }
+  },
+  "remoteEnv": {
+    "BW_SESSION": "${localEnv:BW_SESSION}",
+    "DOTFILES_REPO": "${localEnv:DOTFILES_REPO}"
+  },
+  "postCreateCommand": "bash -c 'curl -fsSL https://raw.githubusercontent.com/${DOTFILES_REPO:-jconradi-aristocrat/dotfiles}/master/bootstrap.sh | bash'"
+}

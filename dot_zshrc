@@ -1,0 +1,281 @@
+# ======================================================
+# FAST ZSH CONFIG (feature rich + instant startup, no OMZ)
+# ======================================================
+
+# ------------------------------------------------------
+# PATH / ENV
+# ------------------------------------------------------
+
+typeset -U path PATH                                # dedupe PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export EDITOR="nvim"
+export VISUAL="nvim"
+export PAGER="less"
+export LESS="-R --mouse"
+
+BREW_PREFIX="/opt/homebrew"
+
+# ------------------------------------------------------
+# ZSH OPTIONS (replaces oh-my-zsh defaults)
+# ------------------------------------------------------
+
+bindkey -e                                          # emacs keybindings (was set by OMZ)
+
+setopt AUTO_MENU
+setopt COMPLETE_IN_WORD
+setopt ALWAYS_TO_END
+setopt AUTO_PUSHD                                   # cd onto a directory stack
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
+setopt EXTENDED_GLOB                                # ^, ~, # in globs
+setopt NUMERIC_GLOB_SORT
+setopt INTERACTIVE_COMMENTS                         # # comments in interactive shell
+setopt NO_BEEP
+
+# ------------------------------------------------------
+# COMPLETION SYSTEM
+# ------------------------------------------------------
+
+zmodload zsh/complist
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*:warnings' format '%F{red}-- no matches --%f'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+mkdir -p ~/.zsh/cache
+autoload -Uz compinit
+compinit -d ~/.zsh/cache/.zcompdump
+
+# ------------------------------------------------------
+# STARSHIP PROMPT
+# ------------------------------------------------------
+
+eval "$(starship init zsh)"
+
+# ------------------------------------------------------
+# ZSH-DEFER (lazy loading helper)
+# ------------------------------------------------------
+
+if [[ -f "$BREW_PREFIX/opt/zsh-defer/zsh-defer.plugin.zsh" ]]; then
+  source "$BREW_PREFIX/opt/zsh-defer/zsh-defer.plugin.zsh"
+fi
+
+# ------------------------------------------------------
+# MODERN CLI TOOLS
+# ------------------------------------------------------
+
+alias cat="bat"
+alias ls="eza -alh --git --icons"
+alias tree="eza --tree"
+alias find="fd"
+alias grep="rg"
+
+alias vi="nvim"
+alias vim="nvim"
+
+alias c="claude"
+alias ch="claude --chrome"
+alias co="code"
+alias q="cd ~/Documents/GitHub"
+alias d="dirs -v"                                   # browse pushd stack
+
+# ------------------------------------------------------
+# GIT SHORTCUTS
+# ------------------------------------------------------
+
+alias gs="git status"
+alias gd="git diff"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gl="git log --oneline --graph --decorate"
+alias lg="lazygit"
+
+# ------------------------------------------------------
+# LAZY NVM
+# ------------------------------------------------------
+
+export NVM_DIR="$HOME/.nvm"
+
+lazy_load_nvm() {
+  unset -f node npm npx nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+}
+
+node() { lazy_load_nvm; node "$@"; }
+npm()  { lazy_load_nvm; npm "$@"; }
+npx()  { lazy_load_nvm; npx "$@"; }
+nvm()  { lazy_load_nvm; nvm "$@"; }
+
+# ------------------------------------------------------
+# ZOXIDE
+# ------------------------------------------------------
+
+eval "$(zoxide init zsh)"
+alias j="z"
+
+# ------------------------------------------------------
+# FZF (must load BEFORE atuin so atuin wins ^R)
+# ------------------------------------------------------
+
+export FZF_DEFAULT_OPTS="
+--height 40%
+--layout=reverse
+--border
+--inline-info
+--preview-window=right:60%
+"
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range=:200 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always --level=2 {} | head -200'"
+
+source "$BREW_PREFIX/opt/fzf/shell/key-bindings.zsh"
+source "$BREW_PREFIX/opt/fzf/shell/completion.zsh"
+
+# ------------------------------------------------------
+# ATUIN (loads LAST so it owns ^R)
+# ------------------------------------------------------
+
+eval "$(atuin init zsh)"
+bindkey '^r' atuin-search                           # belt-and-suspenders
+
+# ------------------------------------------------------
+# AUTOSUGGESTIONS
+# ------------------------------------------------------
+
+source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
+
+# ------------------------------------------------------
+# SYNTAX HIGHLIGHTING
+# ------------------------------------------------------
+
+source "$BREW_PREFIX/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+
+# ------------------------------------------------------
+# HISTORY
+# ------------------------------------------------------
+
+HISTSIZE=1000000
+SAVEHIST=1000000
+HISTFILE=~/.zsh_history
+
+setopt EXTENDED_HISTORY                             # timestamp + duration in $HISTFILE
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY                                  # confirm before running !! / !$
+setopt HIST_IGNORE_SPACE                            # leading space → don't save
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY_TIME
+
+# ------------------------------------------------------
+# POWER-USER UTILITIES
+# ------------------------------------------------------
+
+# mkdir + cd
+mkcd() { mkdir -p "$1" && cd "$1"; }
+
+# Universal archive extractor
+extract() {
+  if [[ ! -f "$1" ]]; then echo "extract: '$1' not found"; return 1; fi
+  case "$1" in
+    *.tar.bz2|*.tbz2) tar xjf "$1" ;;
+    *.tar.gz|*.tgz)   tar xzf "$1" ;;
+    *.tar.xz)         tar xJf "$1" ;;
+    *.tar)            tar xf "$1" ;;
+    *.bz2)            bunzip2 "$1" ;;
+    *.gz)             gunzip "$1" ;;
+    *.zip)            unzip "$1" ;;
+    *.7z)             7z x "$1" ;;
+    *.rar)            unrar x "$1" ;;
+    *.xz)             unxz "$1" ;;
+    *.Z)              uncompress "$1" ;;
+    *)                echo "extract: don't know how to extract '$1'"; return 1 ;;
+  esac
+}
+
+# Clone-and-cd: `take git@github.com:user/repo.git` or `take new-dir`
+take() {
+  if [[ "$1" =~ ^(git@|https?://) ]]; then
+    git clone "$1" && cd "$(basename "$1" .git)"
+  else
+    mkcd "$1"
+  fi
+}
+
+# ------------------------------------------------------
+# CLAUDE MULTI-AGENT HELPERS
+# ------------------------------------------------------
+
+# claude in a new tmux window (named after first arg)
+cw() {
+  if [[ -z "$TMUX" ]]; then echo "cw: not in a tmux session"; return 1; fi
+  local name="${1:-claude}"
+  tmux new-window -n "$name" "claude"
+}
+
+# claude in a new tmux session
+cs() {
+  local name="${1:-claude-$(date +%H%M)}"
+  tmux new-session -d -s "$name" "claude"
+  tmux switch-client -t "$name" 2>/dev/null || tmux attach -t "$name"
+}
+
+# list all running claude processes with cwd
+cls() {
+  ps -eo pid,etime,command | rg '\bclaude\b' | rg -v 'rg|cls\(\)' | while read -r pid etime cmd; do
+    cwd=$(lsof -a -d cwd -p "$pid" 2>/dev/null | tail -1 | awk '{print $NF}')
+    printf "%-7s %-10s %s\n" "$pid" "$etime" "${cwd:-?}"
+  done
+}
+
+# kill all stray claude processes (interactive confirm)
+ckill() {
+  local pids
+  pids=$(pgrep -x claude)
+  if [[ -z "$pids" ]]; then echo "no claude processes"; return; fi
+  echo "Found claude PIDs:"; echo "$pids"
+  read -q "REPLY?Kill all? [y/N] " || { echo; return 1; }
+  echo; echo "$pids" | xargs kill -TERM
+}
+
+# claude smart runner: pick from atuin history, run via claude
+cl() {
+  local cmd
+  cmd=$(atuin search -i 2>/dev/null) || return
+  [[ -n "$cmd" ]] && claude "$cmd"
+}
+
+# claude explain current command line (Ctrl-X Ctrl-E)
+explain_cmd() {
+  BUFFER="claude \"Explain this command: $BUFFER\""
+  zle accept-line
+}
+zle -N explain_cmd
+bindkey '^X^E' explain_cmd
+
+# ------------------------------------------------------
+# AUTO TMUX
+# Pop into a persistent tmux session on every interactive shell so anything
+# you start is reachable from another device via `ssh host -t tmux a -t main`.
+# Skips IDE-embedded terminals (VSCode, JetBrains, Warp, Emacs) so they keep
+# their integrations.
+# ------------------------------------------------------
+if [[ -o interactive ]] \
+   && [[ -z "$TMUX" ]] \
+   && [[ -z "$VSCODE_INJECTION" ]] \
+   && [[ -z "$INSIDE_EMACS" ]] \
+   && [[ -z "$INTELLIJ_ENVIRONMENT_READER" ]] \
+   && [[ "$TERM_PROGRAM" != "vscode" ]] \
+   && [[ "$TERM_PROGRAM" != "WarpTerminal" ]] \
+   && command -v tmux >/dev/null 2>&1; then
+  exec tmux new -A -s main
+fi

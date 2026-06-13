@@ -1,0 +1,29 @@
+# Brewfile.darwin — macOS GUI casks and Mac-only utilities.
+# Cross-OS CLI tools live in devbox.json. Forkers add/remove casks freely.
+
+# Taps required for non-cask entries below
+tap "asheshgoplani/tap"
+
+# Mac-only CLI utilities (no Nix package or no Linux equivalent)
+brew "duti"              # macOS file-association tool
+brew "coreutils"         # GNU file/text/shell utils (g-prefixed) — gdate etc.
+
+# Terminal-session manager for AI coding agents (tap-only)
+brew "asheshgoplani/tap/agent-deck"
+
+# GUI applications
+cask "claude-code"
+cask "codex"
+cask "db-browser-for-sqlite"
+cask "gcloud-cli"
+cask "ghostty"
+cask "notion"
+
+# VSCode extensions managed via Brewfile
+vscode "anthropic.claude-code"
+vscode "docker.docker"
+vscode "fabiospampinato.vscode-open-in-github"
+vscode "ms-azuretools.vscode-containers"
+vscode "ms-azuretools.vscode-docker"
+vscode "ms-vscode-remote.remote-containers"
+vscode "openai.chatgpt"

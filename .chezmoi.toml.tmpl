@@ -1,0 +1,17 @@
+{{- /* First-apply prompts. Stored in ~/.config/chezmoi/chezmoi.toml. */ -}}
+{{- /* Intentionally neutral — no upstream-author defaults. */ -}}
+
+{{- $name        := promptStringOnce . "name"        "Your full name" -}}
+{{- $email       := promptStringOnce . "email"       "Git email" -}}
+{{- $ghHandle    := promptStringOnce . "ghHandle"    "GitHub handle" -}}
+{{- $signingKey  := promptStringOnce . "signingKey"  "Git signing key id (leave blank to disable)" "" -}}
+{{- $isPersonal  := promptBoolOnce   . "isPersonal"  "Personal machine (vs. work)?" false -}}
+{{- $cloudTarget := promptChoiceOnce . "cloudTarget" "Cloud target" (list "none" "devbox-cloud" "codespaces" "generic") "none" -}}
+
+[data]
+    name        = {{ $name        | quote }}
+    email       = {{ $email       | quote }}
+    ghHandle    = {{ $ghHandle    | quote }}
+    signingKey  = {{ $signingKey  | quote }}
+    isPersonal  = {{ $isPersonal }}
+    cloudTarget = {{ $cloudTarget | quote }}

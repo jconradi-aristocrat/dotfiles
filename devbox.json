@@ -1,0 +1,42 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/main/.schema/devbox.schema.json",
+  "name":  "global-toolchain",
+  "description": "Cross-OS CLI tools that follow you to every machine and cloud VM.",
+  "packages": [
+    "atuin@latest",
+    "bat@latest",
+    "carapace@latest",
+    "delta@latest",
+    "direnv@latest",
+    "eza@latest",
+    "fd@latest",
+    "fzf@latest",
+    "gh@latest",
+    "git@latest",
+    "git-lfs@latest",
+    "glow@latest",
+    "gron@latest",
+    "helm@latest",
+    "httpie@latest",
+    "jq@latest",
+    "k9s@latest",
+    "kind@latest",
+    "kubectl@latest",
+    "lazygit@latest",
+    "mise@latest",
+    "neovim@latest",
+    "oh-my-posh@latest",
+    "ripgrep@latest",
+    "starship@latest",
+    "tmux@latest",
+    "tree-sitter@latest",
+    "yazi@latest",
+    "yq@latest",
+    "zoxide@latest"
+  ],
+  "shell": {
+    "init_hook": [
+      "echo '[devbox] global toolchain active'"
+    ]
+  }
+}

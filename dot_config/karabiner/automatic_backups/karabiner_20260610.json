@@ -1,0 +1,1475 @@
+{
+  "global" : {
+    "show_in_menu_bar" : false
+  },
+  "profiles" : [ {
+    "complex_modifications" : {
+      "parameters" : {
+        "basic.to_if_alone_timeout_milliseconds" : 250,
+        "basic.to_if_held_down_threshold_milliseconds" : 100
+      },
+      "rules" : [ {
+        "description" : "Caps Lock: Hold for Hyper, Tap for Escape",
+        "manipulators" : [ {
+          "from" : {
+            "key_code" : "caps_lock",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "parameters" : {
+            "basic.to_if_alone_timeout_milliseconds" : 200,
+            "basic.to_if_held_down_threshold_milliseconds" : 100
+          },
+          "to" : [ {
+            "key_code" : "left_option",
+            "modifiers" : [ "left_control" ]
+          } ],
+          "to_if_alone" : [ {
+            "key_code" : "escape"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "Shift double-tap toggles Caps Lock",
+        "manipulators" : [ {
+          "conditions" : [ {
+            "name" : "shift_tap_pending",
+            "type" : "variable_if",
+            "value" : 1
+          } ],
+          "from" : {
+            "key_code" : "left_shift",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "parameters" : {
+            "basic.to_if_alone_timeout_milliseconds" : 180
+          },
+          "to" : [ {
+            "key_code" : "left_shift"
+          } ],
+          "to_if_alone" : [ {
+            "key_code" : "caps_lock"
+          }, {
+            "set_variable" : {
+              "name" : "shift_tap_pending",
+              "value" : 0
+            }
+          } ],
+          "type" : "basic"
+        }, {
+          "conditions" : [ {
+            "name" : "shift_tap_pending",
+            "type" : "variable_if",
+            "value" : 1
+          } ],
+          "from" : {
+            "key_code" : "right_shift",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "parameters" : {
+            "basic.to_if_alone_timeout_milliseconds" : 180
+          },
+          "to" : [ {
+            "key_code" : "right_shift"
+          } ],
+          "to_if_alone" : [ {
+            "key_code" : "caps_lock"
+          }, {
+            "set_variable" : {
+              "name" : "shift_tap_pending",
+              "value" : 0
+            }
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "left_shift",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "parameters" : {
+            "basic.to_delayed_action_delay_milliseconds" : 180,
+            "basic.to_if_alone_timeout_milliseconds" : 180
+          },
+          "to" : [ {
+            "key_code" : "left_shift"
+          } ],
+          "to_delayed_action" : {
+            "to_if_canceled" : [ {
+              "set_variable" : {
+                "name" : "shift_tap_pending",
+                "value" : 0
+              }
+            } ],
+            "to_if_invoked" : [ {
+              "set_variable" : {
+                "name" : "shift_tap_pending",
+                "value" : 0
+              }
+            } ]
+          },
+          "to_if_alone" : [ {
+            "set_variable" : {
+              "name" : "shift_tap_pending",
+              "value" : 1
+            }
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "right_shift",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "parameters" : {
+            "basic.to_delayed_action_delay_milliseconds" : 180,
+            "basic.to_if_alone_timeout_milliseconds" : 180
+          },
+          "to" : [ {
+            "key_code" : "right_shift"
+          } ],
+          "to_delayed_action" : {
+            "to_if_canceled" : [ {
+              "set_variable" : {
+                "name" : "shift_tap_pending",
+                "value" : 0
+              }
+            } ],
+            "to_if_invoked" : [ {
+              "set_variable" : {
+                "name" : "shift_tap_pending",
+                "value" : 0
+              }
+            } ]
+          },
+          "to_if_alone" : [ {
+            "set_variable" : {
+              "name" : "shift_tap_pending",
+              "value" : 1
+            }
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "Hyper + letter: focus AeroSpace workspace for app (S/T/O/C/G/V)",
+        "manipulators" : [ {
+          "type" : "basic",
+          "from" : {
+            "key_code" : "s",
+            "modifiers" : {
+              "mandatory" : [ "left_option", "left_control" ],
+              "optional" : [ "caps_lock" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace workspace 6"
+          } ]
+        }, {
+          "type" : "basic",
+          "from" : {
+            "key_code" : "t",
+            "modifiers" : {
+              "mandatory" : [ "left_option", "left_control" ],
+              "optional" : [ "caps_lock" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace workspace 7"
+          } ]
+        }, {
+          "type" : "basic",
+          "from" : {
+            "key_code" : "o",
+            "modifiers" : {
+              "mandatory" : [ "left_option", "left_control" ],
+              "optional" : [ "caps_lock" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace workspace 8"
+          } ]
+        }, {
+          "type" : "basic",
+          "from" : {
+            "key_code" : "c",
+            "modifiers" : {
+              "mandatory" : [ "left_option", "left_control" ],
+              "optional" : [ "caps_lock" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace workspace 2"
+          } ]
+        }, {
+          "type" : "basic",
+          "from" : {
+            "key_code" : "g",
+            "modifiers" : {
+              "mandatory" : [ "left_option", "left_control" ],
+              "optional" : [ "caps_lock" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace workspace 1"
+          } ]
+        }, {
+          "type" : "basic",
+          "from" : {
+            "key_code" : "v",
+            "modifiers" : {
+              "mandatory" : [ "left_option", "left_control" ],
+              "optional" : [ "caps_lock" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace workspace 3"
+          } ]
+        } ]
+      } ]
+    },
+    "name" : "Default profile",
+    "selected" : true,
+    "virtual_hid_keyboard" : {
+      "keyboard_type_v2" : "ansi"
+    }
+  }, {
+    "name" : "Goku",
+    "selected" : false,
+    "complex_modifications" : {
+      "parameters" : {
+        "basic.simultaneous_threshold_milliseconds" : 200,
+        "basic.to_delayed_action_delay_milliseconds" : 250,
+        "basic.to_if_alone_timeout_milliseconds" : 250,
+        "basic.to_if_held_down_threshold_milliseconds" : 500
+      },
+      "rules" : [ {
+        "description" : "Foundation: caps_lock → Hyper / Esc",
+        "manipulators" : [ {
+          "to_if_alone" : [ {
+            "key_code" : "escape"
+          } ],
+          "from" : {
+            "key_code" : "caps_lock",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "left_shift"
+          }, {
+            "key_code" : "left_control"
+          }, {
+            "key_code" : "left_option"
+          }, {
+            "key_code" : "left_command"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_if_alone" : [ {
+            "key_code" : "right_command"
+          } ],
+          "from" : {
+            "key_code" : "right_command",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "left_control"
+          }, {
+            "key_code" : "left_option"
+          }, {
+            "key_code" : "left_command"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "Open layer (Hyper+O → letter)",
+        "manipulators" : [ {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "o",
+            "modifiers" : {
+              "mandatory" : [ "left_command", "left_control", "left_option", "left_shift" ]
+            }
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 1
+            }
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "c"
+          },
+          "to" : [ {
+            "shell_command" : "open -a 'Google Chrome'"
+          } ],
+          "conditions" : [ {
+            "name" : "o-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "t"
+          },
+          "to" : [ {
+            "shell_command" : "open -a 'Ghostty'"
+          } ],
+          "conditions" : [ {
+            "name" : "o-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "s"
+          },
+          "to" : [ {
+            "shell_command" : "open -a 'Slack'"
+          } ],
+          "conditions" : [ {
+            "name" : "o-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "o"
+          },
+          "to" : [ {
+            "shell_command" : "open -a 'Microsoft Outlook'"
+          } ],
+          "conditions" : [ {
+            "name" : "o-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "m"
+          },
+          "to" : [ {
+            "shell_command" : "open -a 'Microsoft Teams'"
+          } ],
+          "conditions" : [ {
+            "name" : "o-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "b"
+          },
+          "to" : [ {
+            "shell_command" : "open -a 'Bitwarden'"
+          } ],
+          "conditions" : [ {
+            "name" : "o-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "f"
+          },
+          "to" : [ {
+            "shell_command" : "open -a 'Finder'"
+          } ],
+          "conditions" : [ {
+            "name" : "o-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "r"
+          },
+          "to" : [ {
+            "shell_command" : "open -a 'Raycast'"
+          } ],
+          "conditions" : [ {
+            "name" : "o-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "n"
+          },
+          "to" : [ {
+            "shell_command" : "open -a 'Notion'"
+          } ],
+          "conditions" : [ {
+            "name" : "o-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "o-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "z"
+          },
+          "to" : [ {
+            "shell_command" : "open -a 'zoom.us'"
+          } ],
+          "conditions" : [ {
+            "name" : "o-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "Window layer (Hyper+W → AeroSpace ops)",
+        "manipulators" : [ {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "w",
+            "modifiers" : {
+              "mandatory" : [ "left_command", "left_control", "left_option", "left_shift" ]
+            }
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 1
+            }
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "h"
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace focus left"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "j"
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace focus down"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "k"
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace focus up"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "l"
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace focus right"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "h",
+            "modifiers" : {
+              "mandatory" : [ "left_shift" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace move left"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "j",
+            "modifiers" : {
+              "mandatory" : [ "left_shift" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace move down"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "k",
+            "modifiers" : {
+              "mandatory" : [ "left_shift" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace move up"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "l",
+            "modifiers" : {
+              "mandatory" : [ "left_shift" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace move right"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "f"
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace fullscreen"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "equal_sign"
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace balance-sizes"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "slash"
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace split opposite"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "w-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "tab"
+          },
+          "to" : [ {
+            "shell_command" : "/opt/homebrew/bin/aerospace workspace-back-and-forth"
+          } ],
+          "conditions" : [ {
+            "name" : "w-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "System layer (Hyper+S → letter)",
+        "manipulators" : [ {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "s-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "s",
+            "modifiers" : {
+              "mandatory" : [ "left_command", "left_control", "left_option", "left_shift" ]
+            }
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "s-mode",
+              "value" : 1
+            }
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "s-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "m"
+          },
+          "to" : [ {
+            "shell_command" : "osascript -e 'set volume output muted not (output muted of (get volume settings))'"
+          } ],
+          "conditions" : [ {
+            "name" : "s-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "d"
+          },
+          "to" : [ { }, {
+            "set_variable" : {
+              "name" : "s-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "s-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "s-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "c"
+          },
+          "to" : [ {
+            "shell_command" : "open 'raycast://extensions/raycast/clipboard-history/clipboard-history'"
+          } ],
+          "conditions" : [ {
+            "name" : "s-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "p"
+          },
+          "to" : [ {
+            "key_code" : "4",
+            "modifiers" : [ "left_command", "left_shift" ]
+          }, {
+            "set_variable" : {
+              "name" : "s-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "s-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "p",
+            "modifiers" : {
+              "mandatory" : [ "left_shift" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "4",
+            "modifiers" : [ "left_command", "left_shift" ]
+          }, {
+            "set_variable" : {
+              "name" : "s-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "s-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "r"
+          },
+          "to" : [ {
+            "key_code" : "5",
+            "modifiers" : [ "left_command", "left_shift" ]
+          }, {
+            "set_variable" : {
+              "name" : "s-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "s-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "l"
+          },
+          "to" : [ { }, {
+            "set_variable" : {
+              "name" : "s-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "s-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "Tab layer (Hyper+T → letter)",
+        "manipulators" : [ {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "t",
+            "modifiers" : {
+              "mandatory" : [ "left_command", "left_control", "left_option", "left_shift" ]
+            }
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 1
+            }
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "t"
+          },
+          "to" : [ {
+            "key_code" : "t",
+            "modifiers" : [ "left_command" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "w"
+          },
+          "to" : [ {
+            "key_code" : "w",
+            "modifiers" : [ "left_command" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "r"
+          },
+          "to" : [ {
+            "key_code" : "t",
+            "modifiers" : [ "left_command", "left_shift" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "h"
+          },
+          "to" : [ {
+            "key_code" : "open_bracket",
+            "modifiers" : [ "left_command", "left_shift" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "l"
+          },
+          "to" : [ {
+            "key_code" : "close_bracket",
+            "modifiers" : [ "left_command", "left_shift" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "1"
+          },
+          "to" : [ {
+            "key_code" : "1",
+            "modifiers" : [ "left_command" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "2"
+          },
+          "to" : [ {
+            "key_code" : "2",
+            "modifiers" : [ "left_command" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "3"
+          },
+          "to" : [ {
+            "key_code" : "3",
+            "modifiers" : [ "left_command" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "4"
+          },
+          "to" : [ {
+            "key_code" : "4",
+            "modifiers" : [ "left_command" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "5"
+          },
+          "to" : [ {
+            "key_code" : "5",
+            "modifiers" : [ "left_command" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "6"
+          },
+          "to" : [ {
+            "key_code" : "6",
+            "modifiers" : [ "left_command" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "7"
+          },
+          "to" : [ {
+            "key_code" : "7",
+            "modifiers" : [ "left_command" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "8"
+          },
+          "to" : [ {
+            "key_code" : "8",
+            "modifiers" : [ "left_command" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "key_code" : "9"
+          },
+          "to" : [ {
+            "key_code" : "9",
+            "modifiers" : [ "left_command" ]
+          }, {
+            "set_variable" : {
+              "name" : "t-mode",
+              "value" : 0
+            }
+          } ],
+          "conditions" : [ {
+            "name" : "t-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "Git layer (Hyper+G → letter)",
+        "manipulators" : [ {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "g-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "g",
+            "modifiers" : {
+              "mandatory" : [ "left_command", "left_control", "left_option", "left_shift" ]
+            }
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "g-mode",
+              "value" : 1
+            }
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "g-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "s"
+          },
+          "to" : [ {
+            "shell_command" : "tmux send-keys 'lazygit' Enter"
+          } ],
+          "conditions" : [ {
+            "name" : "g-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "g-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "p"
+          },
+          "to" : [ {
+            "shell_command" : "tmux send-keys 'git push' Enter"
+          } ],
+          "conditions" : [ {
+            "name" : "g-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "g-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "l"
+          },
+          "to" : [ {
+            "shell_command" : "tmux send-keys 'git pull --rebase' Enter"
+          } ],
+          "conditions" : [ {
+            "name" : "g-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "g-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "o"
+          },
+          "to" : [ {
+            "shell_command" : "tmux send-keys 'gh repo view --web' Enter"
+          } ],
+          "conditions" : [ {
+            "name" : "g-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "g-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "b"
+          },
+          "to" : [ {
+            "shell_command" : "open 'raycast://extensions/raycast/github/search-pull-requests'"
+          } ],
+          "conditions" : [ {
+            "name" : "g-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "g-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "c"
+          },
+          "to" : [ {
+            "shell_command" : "open 'raycast://ai-commands/conventional-commit'"
+          } ],
+          "conditions" : [ {
+            "name" : "g-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "Node layer (Hyper+N → letter)",
+        "manipulators" : [ {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "n-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "n",
+            "modifiers" : {
+              "mandatory" : [ "left_command", "left_control", "left_option", "left_shift" ]
+            }
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "n-mode",
+              "value" : 1
+            }
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "n-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "i"
+          },
+          "to" : [ {
+            "shell_command" : "tmux send-keys 'pnpm install' Enter"
+          } ],
+          "conditions" : [ {
+            "name" : "n-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "n-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "d"
+          },
+          "to" : [ {
+            "shell_command" : "tmux send-keys 'pnpm dev' Enter"
+          } ],
+          "conditions" : [ {
+            "name" : "n-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "n-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "t"
+          },
+          "to" : [ {
+            "shell_command" : "tmux send-keys 'pnpm test' Enter"
+          } ],
+          "conditions" : [ {
+            "name" : "n-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "n-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "b"
+          },
+          "to" : [ {
+            "shell_command" : "tmux send-keys 'pnpm build' Enter"
+          } ],
+          "conditions" : [ {
+            "name" : "n-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "to_after_key_up" : [ {
+            "set_variable" : {
+              "name" : "n-mode",
+              "value" : 0
+            }
+          } ],
+          "from" : {
+            "key_code" : "l"
+          },
+          "to" : [ {
+            "shell_command" : "tmux send-keys 'pnpm lint' Enter"
+          } ],
+          "conditions" : [ {
+            "name" : "n-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        } ]
+      } ]
+    },
+    "simple_modifications" : [ ],
+    "fn_function_keys" : [ ],
+    "virtual_hid_keyboard" : {
+      "keyboard_type_v2" : "ansi"
+    },
+    "devices" : [ ]
+  } ]
+}

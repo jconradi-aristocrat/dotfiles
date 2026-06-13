@@ -1,0 +1,536 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 4,
+  "final_space": true,
+  "shell_integration": true,
+  "console_title_template": "{{ .UserName }}@{{ .HostName }} · {{ .Folder }}",
+  "palettes": {
+    "template": "{{ if .Env.CATPPUCCIN_FLAVOR }}{{ .Env.CATPPUCCIN_FLAVOR }}{{ else }}mocha{{ end }}",
+    "list": {
+      "mocha": {
+        "base": "#1e1e2e",
+        "mantle": "#181825",
+        "crust": "#11111b",
+        "surface0": "#313244",
+        "surface1": "#45475a",
+        "surface2": "#585b70",
+        "overlay0": "#6c7086",
+        "overlay1": "#7f849c",
+        "overlay2": "#9399b2",
+        "subtext0": "#a6adc8",
+        "subtext1": "#bac2de",
+        "text": "#cdd6f4",
+        "rosewater": "#f5e0dc",
+        "flamingo": "#f2cdcd",
+        "pink": "#f5c2e7",
+        "mauve": "#cba6f7",
+        "red": "#f38ba8",
+        "maroon": "#eba0ac",
+        "peach": "#fab387",
+        "yellow": "#f9e2af",
+        "green": "#a6e3a1",
+        "teal": "#94e2d5",
+        "sky": "#89dceb",
+        "sapphire": "#74c7ec",
+        "blue": "#89b4fa",
+        "lavender": "#b4befe"
+      },
+      "macchiato": {
+        "base": "#24273a",
+        "mantle": "#1e2030",
+        "crust": "#181926",
+        "surface0": "#363a4f",
+        "surface1": "#494d64",
+        "surface2": "#5b6078",
+        "overlay0": "#6e738d",
+        "overlay1": "#8087a2",
+        "overlay2": "#939ab7",
+        "subtext0": "#a5adcb",
+        "subtext1": "#b8c0e0",
+        "text": "#cad3f5",
+        "rosewater": "#f4dbd6",
+        "flamingo": "#f0c6c6",
+        "pink": "#f5bde6",
+        "mauve": "#c6a0f6",
+        "red": "#ed8796",
+        "maroon": "#ee99a0",
+        "peach": "#f5a97f",
+        "yellow": "#eed49f",
+        "green": "#a6da95",
+        "teal": "#8bd5ca",
+        "sky": "#91d7e3",
+        "sapphire": "#7dc4e4",
+        "blue": "#8aadf4",
+        "lavender": "#b7bdf8"
+      },
+      "frappe": {
+        "base": "#303446",
+        "mantle": "#292c3c",
+        "crust": "#232634",
+        "surface0": "#414559",
+        "surface1": "#51576d",
+        "surface2": "#626880",
+        "overlay0": "#737994",
+        "overlay1": "#838ba7",
+        "overlay2": "#949cbb",
+        "subtext0": "#a5adce",
+        "subtext1": "#b5bfe2",
+        "text": "#c6d0f5",
+        "rosewater": "#f2d5cf",
+        "flamingo": "#eebebe",
+        "pink": "#f4b8e4",
+        "mauve": "#ca9ee6",
+        "red": "#e78284",
+        "maroon": "#ea999c",
+        "peach": "#ef9f76",
+        "yellow": "#e5c890",
+        "green": "#a6d189",
+        "teal": "#81c8be",
+        "sky": "#99d1db",
+        "sapphire": "#85c1dc",
+        "blue": "#8caaee",
+        "lavender": "#babbf1"
+      },
+      "latte": {
+        "base": "#eff1f5",
+        "mantle": "#e6e9ef",
+        "crust": "#dce0e8",
+        "surface0": "#ccd0da",
+        "surface1": "#bcc0cc",
+        "surface2": "#acb0be",
+        "overlay0": "#9ca0b0",
+        "overlay1": "#8c8fa1",
+        "overlay2": "#7c7f93",
+        "subtext0": "#6c6f85",
+        "subtext1": "#5c5f77",
+        "text": "#4c4f69",
+        "rosewater": "#dc8a78",
+        "flamingo": "#dd7878",
+        "pink": "#ea76cb",
+        "mauve": "#8839ef",
+        "red": "#d20f39",
+        "maroon": "#e64553",
+        "peach": "#fe640b",
+        "yellow": "#df8e1d",
+        "green": "#40a02b",
+        "teal": "#179299",
+        "sky": "#04a5e5",
+        "sapphire": "#209fb5",
+        "blue": "#1e66f5",
+        "lavender": "#7287fd"
+      }
+    }
+  },
+  "transient_prompt": {
+    "background": "transparent",
+    "foreground": "p:overlay1",
+    "template": "{{ if eq .Code 0 }}<p:green>✓</>{{ else }}<p:red>✗</>{{ end }} <p:subtext0>{{ now | date \"15:04:05\" }}</> <p:overlay0>·</> <p:peach>{{ .Segments.Executiontime.FormattedMs }}</>{{ if gt .Code 0 }} <p:overlay0>·</> <p:red>{{ .Code }} ({{ reason .Code }})</>{{ end }} <p:overlay0>·</> <p:lavender>{{ .Folder }}</>{{ if .Env.OMP_LAST_COMMAND }} <p:overlay0>·</> <p:mauve>$</> <p:subtext1>{{ .Env.OMP_LAST_COMMAND }}</>{{ end }}\n<p:mauve>❯</> "
+  },
+  "tooltips_action": "extend",
+  "tooltips": [
+    {
+      "type": "kubectl",
+      "tips": ["kubectl", "k", "helm", "kustomize"],
+      "style": "diamond",
+      "leading_diamond": "",
+      "trailing_diamond": "",
+      "foreground": "p:crust",
+      "background": "p:teal",
+      "template": "  ⎈ {{ .Context }}{{ if .Namespace }} :: {{ .Namespace }}{{ end }} ",
+      "cache": {
+        "duration": "30s",
+        "strategy": "session"
+      },
+      "placeholder": " … "
+    },
+    {
+      "type": "aws",
+      "tips": ["aws", "terraform", "tf", "sam", "cdk"],
+      "style": "diamond",
+      "leading_diamond": "",
+      "trailing_diamond": "",
+      "foreground": "p:crust",
+      "background": "p:yellow",
+      "template": "  {{ .Profile }}{{ if .Region }} @ {{ .Region }}{{ end }} ",
+      "cache": {
+        "duration": "30s",
+        "strategy": "session"
+      },
+      "placeholder": " … "
+    }
+  ],
+  "blocks": [
+    {
+      "type": "rprompt",
+      "newline": true,
+      "segments": [
+        {
+          "type": "command",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:pink",
+          "template": "{{ if .Output }} <p:crust></p:crust> {{ .Output }} {{ end }}",
+          "cache": {
+            "duration": "3s",
+            "strategy": "session"
+          },
+          "min_width": 80,
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "shell": "bash",
+            "command": "/opt/homebrew/bin/media-control get 2>/dev/null | /opt/homebrew/bin/jq -r 'if (.title // \"\") != \"\" then (if .playing then \"▶ \" else \"⏸ \" end) + .title + (if (.artist // \"\") == \"\" then \"\" else \" — \" + .artist end) else empty end' 2>/dev/null | head -c 60"
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "node",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:peach",
+          "template": "  {{ .Full }} ",
+          "cache": {
+            "duration": "1h",
+            "strategy": "folder"
+          },
+          "min_width": 160,
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "display_mode": "files",
+            "fetch_package_manager": false
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "go",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:peach",
+          "template": "  {{ .Full }} ",
+          "cache": {
+            "duration": "1h",
+            "strategy": "folder"
+          },
+          "min_width": 160,
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "display_mode": "files"
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "python",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:peach",
+          "template": "  {{ if .Venv }}({{ .Venv }}) {{ end }}{{ .Full }} ",
+          "cache": {
+            "duration": "1h",
+            "strategy": "folder"
+          },
+          "min_width": 160,
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "display_mode": "files",
+            "fetch_virtual_env": true
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "rust",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:peach",
+          "template": "  {{ .Full }} ",
+          "cache": {
+            "duration": "1h",
+            "strategy": "folder"
+          },
+          "min_width": 160,
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "display_mode": "files"
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "docker",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:maroon",
+          "template": "  {{ .Context }} ",
+          "min_width": 120,
+          "options": {
+            "display_mode": "files"
+          },
+          "cache": {
+            "duration": "30s",
+            "strategy": "folder"
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "terraform",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:lavender",
+          "template": "  {{ .WorkspaceName }} ",
+          "min_width": 120,
+          "options": {
+            "display_mode": "files"
+          },
+          "cache": {
+            "duration": "30s",
+            "strategy": "folder"
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "connection",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:yellow",
+          "template": " <p:sapphire>{{ if eq .Type \"wifi\" }}{{ else }}{{ end }}</p:sapphire> {{ if .SSID }}{{ .SSID }}{{ else }}{{ .Name }}{{ end }} ",
+          "cache": {
+            "duration": "30s",
+            "strategy": "session"
+          },
+          "min_width": 160,
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "type": "wifi"
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "sysinfo",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:green",
+          "template": " <p:crust></p:crust> {{ round .PhysicalPercentUsed .Precision }}% ",
+          "cache": {
+            "duration": "5s",
+            "strategy": "session"
+          },
+          "min_width": 160,
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "precision": 0
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "command",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:teal",
+          "template": "{{ if .Output }} <p:crust></p:crust> {{ .Output }}% {{ end }}",
+          "cache": {
+            "duration": "30s",
+            "strategy": "session"
+          },
+          "min_width": 160,
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "shell": "bash",
+            "command": "df -h / 2>/dev/null | awk 'NR==2 {gsub(\"%\",\"\",$5); print $5}'"
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "battery",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:sky",
+          "template": " {{ if not .Error }}{{ .Icon }}{{ .Percentage }}%{{ end }} ",
+          "cache": {
+            "duration": "30s",
+            "strategy": "session"
+          },
+          "min_width": 120,
+          "background_templates": [
+            "{{ if le .Percentage 30 }}p:red{{ end }}",
+            "{{ if and (gt .Percentage 30) (le .Percentage 50) }}p:yellow{{ end }}",
+            "{{ if gt .Percentage 50 }}p:sky{{ end }}"
+          ],
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "discharging_icon": " ",
+            "charging_icon": "󰂄 ",
+            "charged_icon": "󱟢 "
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "executiontime",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:sapphire",
+          "template": "{{ if gt .Ms 2000 }}   {{ .FormattedMs }} {{ end }}",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "threshold": 0,
+            "style": "austin",
+            "always_enabled": true
+          }
+        },
+        {
+          "type": "text",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:lavender",
+          "template": " <p:crust></p:crust> {{ now | date \"Mon Jan 2\" }} ",
+          "min_width": 160,
+          "leading_diamond": "",
+          "trailing_diamond": ""
+        },
+        {
+          "type": "time",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:mauve",
+          "template": " <p:crust></p:crust> {{ .CurrentDate | date .Format }} ",
+          "min_width": 80,
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "time_format": "15:04"
+          }
+        }
+      ],
+      "leading_diamond": "",
+      "trailing_diamond": ""
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": false,
+      "segments": [
+        {
+          "type": "os",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:mauve",
+          "template": "{{ .Icon }}",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "macos": "",
+            "linux": "",
+            "windows": "",
+            "ubuntu": "",
+            "arch": "",
+            "debian": "",
+            "fedora": "",
+            "raspbian": ""
+          }
+        },
+        {
+          "type": "session",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:maroon",
+          "template": " {{.UserName}}@{{.HostName}}",
+          "leading_diamond": "",
+          "trailing_diamond": ""
+        },
+        {
+          "type": "session",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:sky",
+          "template": "{{ if .SSHSession }} SSH{{ end }}",
+          "leading_diamond": "",
+          "trailing_diamond": ""
+        },
+        {
+          "type": "text",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:yellow",
+          "template": " {{ if eq .Env.OMP_VI_MODE \"NORMAL\" }}NORMAL{{ else if eq .Env.OMP_VI_MODE \"VISUAL\" }}VISUAL{{ else if eq .Env.OMP_VI_MODE \"V-LINE\" }}V-LINE{{ else if eq .Env.OMP_VI_MODE \"REPLACE\" }}REPLACE{{ else }}INSERT{{ end }} ",
+          "leading_diamond": "",
+          "trailing_diamond": ""
+        },
+        {
+          "type": "path",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:green",
+          "template": " <p:crust></p:crust> <b>{{ .Path }}</b> ",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "style": "unique",
+            "home_icon": "~"
+          }
+        },
+        {
+          "type": "git",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:sapphire",
+          "background_templates": [
+            "{{ if or .Working.Changed .Staging.Changed }}p:yellow{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:red{{ end }}",
+            "{{ if gt .Ahead 0 }}p:teal{{ end }}",
+            "{{ if gt .Behind 0 }}p:pink{{ end }}"
+          ],
+          "template": "  {{ .HEAD }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ if gt .Working.Added 0 }} <#22c55e>+{{ .Working.Added }}</>{{ end }}{{ if gt .Working.Modified 0 }} <p:yellow>~{{ .Working.Modified }}</>{{ end }}{{ if gt .Working.Deleted 0 }} <#ef4444>-{{ .Working.Deleted }}</>{{ end }}{{ if gt .Working.Untracked 0 }} <p:overlay1>?{{ .Working.Untracked }}</>{{ end }}{{ if gt .Working.Unmerged 0 }} <p:maroon>!{{ .Working.Unmerged }}</>{{ end }}{{ end }}{{ if and .Working.Changed .Staging.Changed }} <p:overlay1>|</>{{ end }}{{ if .Staging.Changed }}  {{ if gt .Staging.Added 0 }} <#22c55e>+{{ .Staging.Added }}</>{{ end }}{{ if gt .Staging.Modified 0 }} <p:yellow>~{{ .Staging.Modified }}</>{{ end }}{{ if gt .Staging.Deleted 0 }} <#ef4444>-{{ .Staging.Deleted }}</>{{ end }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} ",
+          "cache": {
+            "duration": "5m",
+            "strategy": "folder"
+          },
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "options": {
+            "fetch_status": true,
+            "fetch_upstream_icon": false
+          },
+          "placeholder": "  …"
+        },
+        {
+          "type": "root",
+          "style": "diamond",
+          "foreground": "p:crust",
+          "background": "p:red",
+          "template": "  ",
+          "leading_diamond": "",
+          "trailing_diamond": ""
+        }
+      ],
+      "leading_diamond": "",
+      "trailing_diamond": ""
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": false,
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+          "background": "transparent",
+          "foreground": "p:mauve",
+          "foreground_templates": ["{{ if gt .Code 0 }}p:red{{ end }}"],
+          "template": "<b>❱</b> "
+        }
+      ]
+    }
+  ],
+  "async": true,
+  "streaming": 120
+}

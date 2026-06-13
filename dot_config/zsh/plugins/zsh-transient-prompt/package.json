@@ -1,0 +1,40 @@
+{
+  "name": "zsh-transient-prompt",
+  "version": "1.0.1",
+  "author": "Henry Bley-Vroman <olets@olets.dev>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olets/zsh-transient-prompt"
+  },
+  "bugs": {
+    "url": "https://github.com/olets/zsh-transient-prompt/issues"
+  },
+  "homepage": "https://github.com/olets/zsh-transient-prompt",
+  "keywords": [
+    "zsh",
+    "shell",
+    "prompt",
+    "theme"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "packageManager": "bun@1.1.25",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "asciinema-player": "^3.9.0",
+    "markdown-it-footnote": "^4.0.0",
+    "vitepress": "^1.6.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "dependencies": {
+    "@nolebase/ui-asciinema": "^2.13.0"
+  }
+}

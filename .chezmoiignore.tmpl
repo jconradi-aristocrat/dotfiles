@@ -1,0 +1,65 @@
+{{- /* OS-conditional skip list. */ -}}
+
+# Repo-only files
+README.md
+LICENSE
+Brewfile.darwin
+bootstrap.sh
+teardown.sh
+devbox.json
+devbox.lock
+docs
+.devcontainer
+.devbox/cloud-init.sh
+
+# Claude Code — ephemeral / large / sensitive
+.claude/projects
+.claude/plans
+.claude/todos
+.claude/history.jsonl
+.claude/cache
+.claude/debug
+.claude/file-history
+.claude/shell-snapshots
+.claude/telemetry
+.claude/backups
+.claude/sessions
+.claude/paste-cache
+.claude/plugins
+.claude/chrome
+.claude/ide
+.claude/session-env
+.claude/mcp-needs-auth-cache.json
+.claude/settings.local.json
+
+# nvim runtime state
+.config/nvim/lazyvim.json
+.config/nvim/lazy-lock.json
+
+# OS / editor cruft
+.DS_Store
+*.swp
+.zshrc.bak.*
+
+# agent-deck runtime artifacts (not config)
+.agent-deck/debug.log
+.agent-deck/feedback-state.json
+.agent-deck/update-cache.json
+.agent-deck/cost-events
+
+{{- if ne .chezmoi.os "darwin" }}
+# macOS-only configs
+.config/aerospace
+.config/karabiner
+.config/sketchybar
+.hammerspoon
+{{- end }}
+
+# agent-deck per-session/runtime state (NEVER in repo)
+.agent-deck/profiles
+.agent-deck/hooks
+
+# Plugin docs subtrees (rebuilt from sources, not needed at runtime)
+.config/zsh/plugins/*/docs
+.config/zsh/plugins/*/.github
+.config/zsh/plugins/*/node_modules

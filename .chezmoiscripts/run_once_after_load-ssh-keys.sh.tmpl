@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Fixes permissions on SSH key files materialized from Bitwarden attachments.
+# Tolerates missing keys (SKIP_BW mode, or vault items not present).
+set -uo pipefail
+mkdir -p "$HOME/.ssh"
+chmod 0700 "$HOME/.ssh" 2>/dev/null || true
+[ -f "$HOME/.ssh/id_ed25519" ] && chmod 0600 "$HOME/.ssh/id_ed25519" 2>/dev/null
+[ -f "$HOME/.ssh/id_ed25519.pub" ] && chmod 0644 "$HOME/.ssh/id_ed25519.pub" 2>/dev/null
+exit 0

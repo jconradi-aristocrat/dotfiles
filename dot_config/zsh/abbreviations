@@ -1,0 +1,110 @@
+# zsh-abbr — fish-style abbreviations. zsh-abbr reads this file at load,
+# evaluating each line as a command. The canonical format is what abbr
+# writes when persisting: `abbr key=value` (regular) or `abbr -g key=value`
+# (global). Add new abbreviations with `abbr add` from any shell; this
+# file is rewritten atomically.
+#
+# Type the key + space → buffer rewrites to the expansion in-line, so you
+# SEE the real command (and tab completion works on the expanded form).
+
+# ── git ───────────────────────────────────────────────────
+abbr g="git"
+abbr gco="git checkout"
+abbr gcb="git checkout -b"
+abbr gsw="git switch"
+abbr gswc="git switch -c"
+abbr gst="git status -sb"
+abbr ga="git add"
+abbr gaa="git add --all"
+abbr gc="git commit -v"
+abbr gcm="git commit -m"
+abbr gca="git commit --amend --no-edit"
+abbr gd="git diff"
+abbr gds="git diff --staged"
+abbr gp="git push"
+abbr gpf="git push --force-with-lease"
+abbr gpub="git push -u origin HEAD"
+abbr gpl="git pull --rebase"
+abbr gfa="git fetch --all --prune"
+abbr gl="git log --oneline --graph --decorate --all -20"
+abbr grb="git rebase"
+abbr grbi="git rebase -i"
+abbr grbc="git rebase --continue"
+abbr grba="git rebase --abort"
+abbr gm="git merge"
+abbr gma="git merge --abort"
+abbr gwt="git worktree"
+abbr gwta="git worktree add"
+abbr gwtl="git worktree list"
+abbr gwtr="git worktree remove"
+abbr gcp="git cherry-pick"
+abbr gsh="git stash"
+abbr gshp="git stash pop"
+abbr gshl="git stash list"
+abbr gre="git restore"
+abbr gres="git restore --staged"
+
+# ── kubernetes ────────────────────────────────────────────
+abbr k="kubectl"
+abbr kg="kubectl get"
+abbr kgp="kubectl get pods"
+abbr kgd="kubectl get deployments"
+abbr kgs="kubectl get svc"
+abbr kgn="kubectl get nodes"
+abbr kga="kubectl get all"
+abbr kgall="kubectl get all --all-namespaces"
+abbr kd="kubectl describe"
+abbr kdp="kubectl describe pod"
+abbr kl="kubectl logs -f"
+abbr kex="kubectl exec -it"
+abbr kctx="kubectx"
+abbr kns="kubens"
+abbr kaf="kubectl apply -f"
+abbr kdel="kubectl delete"
+abbr kpf="kubectl port-forward"
+abbr k9="k9s"
+
+# ── docker ────────────────────────────────────────────────
+abbr dps="docker ps"
+abbr dpsa="docker ps -a"
+abbr di="docker images"
+abbr dex="docker exec -it"
+abbr drm="docker rm"
+abbr drmi="docker rmi"
+abbr dc="docker compose"
+abbr dcu="docker compose up -d"
+abbr dcd="docker compose down"
+abbr dcl="docker compose logs -f"
+abbr dcr="docker compose restart"
+abbr dcb="docker compose build"
+abbr dcp="docker compose ps"
+
+# ── terraform ─────────────────────────────────────────────
+abbr tf="terraform"
+abbr tfi="terraform init"
+abbr tfp="terraform plan"
+abbr tfa="terraform apply"
+abbr tfd="terraform destroy"
+abbr tff="terraform fmt"
+abbr tfv="terraform validate"
+abbr tfo="terraform output"
+abbr tfs="terraform state"
+abbr tfws="terraform workspace"
+
+# ── system / shell ────────────────────────────────────────
+abbr zrr="exec zsh"
+abbr upall="update-all"
+
+# ── ripgrep / fd ──────────────────────────────────────────
+abbr rgi="rg -i"
+abbr rgu="rg -u"
+abbr rguu="rg -uu"
+abbr fdh="fd --hidden"
+abbr fde="fd --extension"
+
+# ── gh ────────────────────────────────────────────────────
+abbr ghpr="gh pr create --web"
+abbr ghprs="gh pr list"
+abbr ghprv="gh pr view --web"
+abbr ghrun="gh run watch"
+abbr ghrepo="gh repo view --web"

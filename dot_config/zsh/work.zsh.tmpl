@@ -1,0 +1,6 @@
+{{- /* work.zsh — only loaded on work machines (isPersonal=false). */}}
+{{- /* Real content is pulled from Bitwarden vault item 'work-zsh' (notes field). */}}
+{{- /* Personal/forked installs leave this empty. */ -}}
+{{ if not .isPersonal }}
+{{ (bitwarden "item" "work-zsh").notes }}
+{{- end }}

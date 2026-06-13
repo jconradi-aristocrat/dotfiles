@@ -1,0 +1,302 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 4,
+  "async": true,
+  "streaming": 120,
+  "final_space": true,
+  "palettes": {
+    "template": "{{ if .Env.CATPPUCCIN_FLAVOR }}{{ .Env.CATPPUCCIN_FLAVOR }}{{ else }}mocha{{ end }}",
+    "list": {
+      "mocha": {
+        "base": "#1e1e2e",
+        "mantle": "#181825",
+        "crust": "#11111b",
+        "surface0": "#313244",
+        "surface1": "#45475a",
+        "surface2": "#585b70",
+        "overlay0": "#6c7086",
+        "overlay1": "#7f849c",
+        "overlay2": "#9399b2",
+        "subtext0": "#a6adc8",
+        "subtext1": "#bac2de",
+        "text": "#cdd6f4",
+        "rosewater": "#f5e0dc",
+        "flamingo": "#f2cdcd",
+        "pink": "#f5c2e7",
+        "mauve": "#cba6f7",
+        "red": "#f38ba8",
+        "maroon": "#eba0ac",
+        "peach": "#fab387",
+        "yellow": "#f9e2af",
+        "green": "#a6e3a1",
+        "teal": "#94e2d5",
+        "sky": "#89dceb",
+        "sapphire": "#74c7ec",
+        "blue": "#89b4fa",
+        "lavender": "#b4befe"
+      },
+      "macchiato": {
+        "base": "#24273a",
+        "mantle": "#1e2030",
+        "crust": "#181926",
+        "surface0": "#363a4f",
+        "surface1": "#494d64",
+        "surface2": "#5b6078",
+        "overlay0": "#6e738d",
+        "overlay1": "#8087a2",
+        "overlay2": "#939ab7",
+        "subtext0": "#a5adcb",
+        "subtext1": "#b8c0e0",
+        "text": "#cad3f5",
+        "rosewater": "#f4dbd6",
+        "flamingo": "#f0c6c6",
+        "pink": "#f5bde6",
+        "mauve": "#c6a0f6",
+        "red": "#ed8796",
+        "maroon": "#ee99a0",
+        "peach": "#f5a97f",
+        "yellow": "#eed49f",
+        "green": "#a6da95",
+        "teal": "#8bd5ca",
+        "sky": "#91d7e3",
+        "sapphire": "#7dc4e4",
+        "blue": "#8aadf4",
+        "lavender": "#b7bdf8"
+      },
+      "frappe": {
+        "base": "#303446",
+        "mantle": "#292c3c",
+        "crust": "#232634",
+        "surface0": "#414559",
+        "surface1": "#51576d",
+        "surface2": "#626880",
+        "overlay0": "#737994",
+        "overlay1": "#838ba7",
+        "overlay2": "#949cbb",
+        "subtext0": "#a5adce",
+        "subtext1": "#b5bfe2",
+        "text": "#c6d0f5",
+        "rosewater": "#f2d5cf",
+        "flamingo": "#eebebe",
+        "pink": "#f4b8e4",
+        "mauve": "#ca9ee6",
+        "red": "#e78284",
+        "maroon": "#ea999c",
+        "peach": "#ef9f76",
+        "yellow": "#e5c890",
+        "green": "#a6d189",
+        "teal": "#81c8be",
+        "sky": "#99d1db",
+        "sapphire": "#85c1dc",
+        "blue": "#8caaee",
+        "lavender": "#babbf1"
+      },
+      "latte": {
+        "base": "#eff1f5",
+        "mantle": "#e6e9ef",
+        "crust": "#dce0e8",
+        "surface0": "#ccd0da",
+        "surface1": "#bcc0cc",
+        "surface2": "#acb0be",
+        "overlay0": "#9ca0b0",
+        "overlay1": "#8c8fa1",
+        "overlay2": "#7c7f93",
+        "subtext0": "#6c6f85",
+        "subtext1": "#5c5f77",
+        "text": "#4c4f69",
+        "rosewater": "#dc8a78",
+        "flamingo": "#dd7878",
+        "pink": "#ea76cb",
+        "mauve": "#8839ef",
+        "red": "#d20f39",
+        "maroon": "#e64553",
+        "peach": "#fe640b",
+        "yellow": "#df8e1d",
+        "green": "#40a02b",
+        "teal": "#179299",
+        "sky": "#04a5e5",
+        "sapphire": "#209fb5",
+        "blue": "#1e66f5",
+        "lavender": "#7287fd"
+      }
+    }
+  },
+  "blocks": [
+    {
+      "alignment": "left",
+      "type": "prompt",
+      "leading_diamond": "",
+      "trailing_diamond": "",
+      "segments": [
+        {
+          "type": "claude",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:blue",
+          "template": " <p:crust>󱇉</> <b>{{ .Model.DisplayName }}</b> {{ .TokenUsagePercent.GaugeUsed }} {{ .FormattedTokens }}/{{ if ge .ContextWindow.ContextWindowSize 1000000 }}{{ div .ContextWindow.ContextWindowSize 1000000 }}M{{ else }}{{ div .ContextWindow.ContextWindowSize 1000 }}k{{ end }} ({{ .TokenUsagePercent.String }}%) ",
+          "background_templates": [
+            "{{ if .Exceeds200KTokens }}p:red{{ end }}",
+            "{{ if ge (toInt .TokenUsagePercent.String) 90 }}p:red{{ end }}",
+            "{{ if and (ge (toInt .TokenUsagePercent.String) 70) (lt (toInt .TokenUsagePercent.String) 90) }}p:yellow{{ end }}"
+          ],
+          "placeholder": " … "
+        },
+        {
+          "type": "claude",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:yellow",
+          "template": "{{ if .Agent.Name }} <p:crust>󰕰</> <b>{{ .Agent.Name }}</b> {{ else if eq .Vim.Mode \"INSERT\" }} <p:crust>󰍉</> <b>INSERT</b> {{ else if eq .Vim.Mode \"NORMAL\" }} <p:crust>󰄝</> <b>NORMAL</b> {{ else if eq .Vim.Mode \"VISUAL\" }} <p:crust>󰋦</> <b>VISUAL</b> {{ else if eq .Vim.Mode \"V-LINE\" }} <p:crust>󰋦</> <b>V-LINE</b> {{ else if eq .Vim.Mode \"REPLACE\" }} <p:crust>󰍊</> <b>REPLACE</b> {{ else if eq .Vim.Mode \"COMMAND\" }} <p:crust>󰆍</> <b>COMMAND</b> {{ else if .Vim.Mode }} <p:crust>󰅷</> <b>{{ .Vim.Mode }}</b> {{ else }} <p:crust>󰍉</> <b>INSERT</b> {{ end }}",
+          "background_templates": [
+            "{{ if .Agent.Name }}p:mauve{{ end }}",
+            "{{ if eq .Vim.Mode \"NORMAL\" }}p:sapphire{{ end }}",
+            "{{ if or (eq .Vim.Mode \"VISUAL\") (eq .Vim.Mode \"V-LINE\") }}p:peach{{ end }}",
+            "{{ if eq .Vim.Mode \"REPLACE\" }}p:red{{ end }}",
+            "{{ if eq .Vim.Mode \"COMMAND\" }}p:teal{{ end }}"
+          ]
+        },
+        {
+          "type": "claude",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:peach",
+          "template": "{{ if .Effort.Level }} <p:crust>󰈸</> <b>{{ .Effort.Level }}</b> {{ end }}",
+          "min_width": 80
+        },
+        {
+          "type": "path",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:green",
+          "template": " <p:crust></> <b>{{ .Path }}</b> ",
+          "options": {
+            "style": "unique",
+            "home_icon": "~"
+          }
+        },
+        {
+          "type": "git",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:sapphire",
+          "template": "{{ if .RepoName }} <p:crust></> <b>{{ .RepoName }}</b> {{ end }}",
+          "options": {
+            "branch_icon": "",
+            "fetch_status": false
+          },
+          "cache": {
+            "duration": "5m",
+            "strategy": "folder"
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "git",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:sapphire",
+          "template": " <p:crust></> <b>{{ .HEAD }}</b>{{ if .BranchStatus }} <b>{{ .BranchStatus }}</b>{{ end }}{{ if .Working.Changed }}  {{ if gt .Working.Added     0 }} <p:green><b>+{{ .Working.Added     }}</b></>{{ end }}{{ if gt .Working.Modified  0 }} <p:yellow><b>~{{ .Working.Modified  }}</b></>{{ end }}{{ if gt .Working.Deleted   0 }} <p:red><b>-{{ .Working.Deleted   }}</b></>{{ end }}{{ if gt .Working.Untracked 0 }} <p:overlay1><b>?{{ .Working.Untracked }}</b></>{{ end }}{{ if gt .Working.Unmerged  0 }} <p:maroon><b>!{{ .Working.Unmerged  }}</b></>{{ end }}{{ end }}{{ if and .Working.Changed .Staging.Changed }} <p:overlay1>|</>{{ end }}{{ if .Staging.Changed }}  {{ if gt .Staging.Added    0 }} <p:green><b>+{{ .Staging.Added    }}</b></>{{ end }}{{ if gt .Staging.Modified 0 }} <p:yellow><b>~{{ .Staging.Modified }}</b></>{{ end }}{{ if gt .Staging.Deleted  0 }} <p:red><b>-{{ .Staging.Deleted  }}</b></>{{ end }}{{ end }}{{ if gt .StashCount 0 }}  <b>{{ .StashCount }}</b>{{ end }} ",
+          "background_templates": [
+            "{{ if or .Working.Changed .Staging.Changed }}p:yellow{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:red{{ end }}",
+            "{{ if gt .Ahead 0 }}p:teal{{ end }}",
+            "{{ if gt .Behind 0 }}p:pink{{ end }}"
+          ],
+          "options": {
+            "fetch_status": true,
+            "fetch_upstream_icon": false,
+            "branch_icon": "",
+            "commit_icon": " ",
+            "tag_icon": " ",
+            "rebase_icon": " ",
+            "cherry_pick_icon": " ",
+            "merge_icon": " ",
+            "revert_icon": " ",
+            "no_commits_icon": " "
+          },
+          "cache": {
+            "duration": "5m",
+            "strategy": "folder"
+          },
+          "placeholder": " … "
+        },
+        {
+          "type": "claude",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:teal",
+          "template": "{{ if .Worktree.Branch }} <p:crust>󰨋</> <b>{{ .Worktree.Branch }}</b> {{ end }}",
+          "min_width": 120
+        },
+        {
+          "type": "claude",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:lavender",
+          "template": "{{ if .OutputStyle.Name }} <p:crust>󰦦</> <b>{{ .OutputStyle.Name }}</b> {{ end }}",
+          "min_width": 120
+        },
+        {
+          "type": "command",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:mauve",
+          "template": "{{ if .Output }} <p:crust></> <b>{{ .Output }}</b> {{ end }}",
+          "options": {
+            "shell": "bash",
+            "command": "gh pr status --json createdBy,needsReview,currentBranch --jq '[(.createdBy|length),(.needsReview|length),(.currentBranch.number//empty)] | if .[0]+.[1]==0 then \"\" else   (if .[2] then \"#\\(.[2]) \" else \"\" end)  + (if .[0]>0 then \"\\(.[0]) own\" else \"\" end)  + (if .[0]>0 and .[1]>0 then \" \\u00b7 \" else \"\" end)  + (if .[1]>0 then \"\\(.[1]) rev\" else \"\" end)end' 2>/dev/null || true"
+          },
+          "cache": {
+            "duration": "2m",
+            "strategy": "folder"
+          },
+          "placeholder": " … ",
+          "min_width": 80
+        },
+        {
+          "type": "claude",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:green",
+          "template": " <p:crust>󰵮</> <b>{{ .FormattedCost }}</b> ",
+          "placeholder": " … "
+        },
+        {
+          "type": "executiontime",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "p:crust",
+          "background": "p:sapphire",
+          "template": "{{ if gt .Ms 2000 }} <p:crust>󰃭</> <b>{{ .FormattedMs }}</b> {{ end }}",
+          "min_width": 80,
+          "properties": {
+            "threshold": 0,
+            "style": "round",
+            "always_enabled": true
+          }
+        }
+      ]
+    }
+  ]
+}
